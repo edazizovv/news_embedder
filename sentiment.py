@@ -139,7 +139,8 @@ def stanford_assessor(frame, column_name):
     for j in range(len(sentences)):
         result = nlp.annotate(sentences[j],
                               properties={
-                                  'annotators': 'sentiment, ner, pos',
+                                  #'annotators': 'sentiment, ner, pos',
+                                  'annotators': 'sentiment',
                                   'outputFormat': 'json',
                                   'timeout': 10000,
                               })
