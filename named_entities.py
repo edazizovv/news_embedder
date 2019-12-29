@@ -47,7 +47,7 @@ res = ner_model(["Intel is loosing it's market ."])
 #res = ner_model(["Nvidia is loosing it's market ."])
 """
 
-"""
+
 # spaCy
 # python -m spacy download en_core_web_sm
 
@@ -61,7 +61,7 @@ doc = nlp(sentence)
 
 for ent in doc.ents:
     print(ent.text, ent.label_)
-"""
+
 
 # stanford nlp + pycorenlp
 
