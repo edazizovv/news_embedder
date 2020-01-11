@@ -1,0 +1,4 @@
+The following directions of development are formulated for this project:
+
+	> mass embedding functionality (applicable onto series of news titles)
+	> dimensionality reduction for stacked different embeddings as data fields
