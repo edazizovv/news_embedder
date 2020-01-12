@@ -1,0 +1,70 @@
+flair_assessor
+
+# sentence = "Quick red fox jumps over a lazy dog. Wow really?"  # [POSITIVE (0.9797039031982422)]
+# sentence = "Quick red fox jumps over a lazy dog. So cute!"  # [NEGATIVE (0.8029952049255371)]
+# sentence = "Quick red fox jumps over a lazy dog. I hate them!"  # [NEGATIVE (0.8159670233726501)]
+# sentence = "My boss is an idiot. I wish he would be fired one day."  # [POSITIVE (0.9849846363067627)]
+# sentence = "My boss is amazing! I wish he would take a better position one day."  # [POSITIVE (0.983648419380188)]
+
+# sentence = "Quick red fox jumps over a lazy dog"  # [POSITIVE (0.9934013485908508)]
+# sentence = "Wow really?"  # [POSITIVE (0.9466975927352905)]
+# sentence = "So cute!"  # [NEGATIVE (0.9352309107780457)]
+# sentence = "I hate them!"  # [NEGATIVE (0.7995434403419495)]
+# sentence = "My boss is an idiot. "  # [POSITIVE (0.5423177480697632)]
+# sentence = "I wish he would be fired one day."  # [POSITIVE (0.8940739631652832)]
+# sentence = "My boss is amazing! "  # [POSITIVE (0.9406697750091553)]
+# sentence = "I wish he would take a better position one day."  # [POSITIVE (0.9338367581367493)]
+
+
+nltk_assessor
+
+# sentence = "Quick red fox jumps over a lazy dog. Wow really?"  # {'neg': 0.188, 'neu': 0.526, 'pos': 0.286, 'compound': 0.3182}
+# sentence = "Quick red fox jumps over a lazy dog. So cute!"  # {'neg': 0.191, 'neu': 0.535, 'pos': 0.274, 'compound': 0.2698}
+# sentence = "Quick red fox jumps over a lazy dog. I hate them!"  # {'neg': 0.481, 'neu': 0.519, 'pos': 0.0, 'compound': -0.7574}
+# sentence = "My boss is an idiot. I wish he would be fired one day."  # {'neg': 0.371, 'neu': 0.484, 'pos': 0.145, 'compound': -0.6369}
+# sentence = "My boss is amazing! I wish he would take a better position one day."  # {'neg': 0.0, 'neu': 0.481, 'pos': 0.519, 'compound': 0.8655}
+
+# sentence = "Quick red fox jumps over a lazy dog"  # {'neg': 0.294, 'neu': 0.706, 'pos': 0.0, 'compound': -0.3612}
+# sentence = "Wow really?"  # {'neg': 0.0, 'neu': 0.208, 'pos': 0.792, 'compound': 0.5859}
+# sentence = "So cute!"  # {'neg': 0.0, 'neu': 0.218, 'pos': 0.782, 'compound': 0.5551}
+# sentence = "I hate them!"  # {'neg': 0.8, 'neu': 0.2, 'pos': 0.0, 'compound': -0.6114}
+# sentence = "My boss is an idiot. "  # {'neg': 0.452, 'neu': 0.548, 'pos': 0.0, 'compound': -0.5106}
+# sentence = "I wish he would be fired one day."  # {'neg': 0.319, 'neu': 0.442, 'pos': 0.239, 'compound': -0.2263}
+# sentence = "My boss is amazing! "  # {'neg': 0.0, 'neu': 0.423, 'pos': 0.577, 'compound': 0.6239}
+# sentence = "I wish he would take a better position one day."  # {'neg': 0.0, 'neu': 0.517, 'pos': 0.483, 'compound': 0.6808}
+
+
+textblob_assessor
+
+# sentence = "Quick red fox jumps over a lazy dog. Wow really?"  # {'polarity': 0.07666666666666666, 'subjectivity': 0.54}
+# sentence = "Quick red fox jumps over a lazy dog. So cute!"  # {'polarity': 0.17708333333333331, 'subjectivity': 0.625}
+# sentence = "Quick red fox jumps over a lazy dog. I hate them!"  # {'polarity': -0.22916666666666669, 'subjectivity': 0.6}
+# sentence = "My boss is an idiot. I wish he would be fired one day."  # {'polarity': -0.8, 'subjectivity': 0.8}
+# sentence = "My boss is amazing! I wish he would take a better position one day."  # {'polarity': 0.625, 'subjectivity': 0.7}
+
+# sentence = "Quick red fox jumps over a lazy dog"  # {'polarity': 0.027777777777777773, 'subjectivity': 0.5}
+# sentence = "Wow really?"  # {'polarity': 0.15000000000000002, 'subjectivity': 0.6}
+# sentence = "So cute!"  # {'polarity': 0.625, 'subjectivity': 1.0}
+# sentence = "I hate them!"  # {'polarity': -1.0, 'subjectivity': 0.9}
+# sentence = "My boss is an idiot. "  # {'polarity': -0.8, 'subjectivity': 0.8}
+# sentence = "I wish he would be fired one day."  # {'polarity': 0.0, 'subjectivity': 0.0}
+# sentence = "My boss is amazing! "  # {'polarity': 0.7500000000000001, 'subjectivity': 0.9}
+# sentence = "I wish he would take a better position one day."  # {'polarity': 0.5, 'subjectivity': 0.5}
+
+
+pattern_assessor
+
+# sentence = "Quick red fox jumps over a lazy dog. Wow really?"  # {'polarity': 0.07666666666666666, 'subjectivity': 0.54}
+# sentence = "Quick red fox jumps over a lazy dog. So cute!"  # {'polarity': 0.17708333333333331, 'subjectivity': 0.625}
+# sentence = "Quick red fox jumps over a lazy dog. I hate them!"  # {'polarity': -0.22916666666666669, 'subjectivity': 0.6}
+# sentence = "My boss is an idiot. I wish he would be fired one day."  # {'polarity': -0.8, 'subjectivity': 0.8}
+# sentence = "My boss is amazing! I wish he would take a better position one day."  # {'polarity': 0.625, 'subjectivity': 0.7}
+
+# sentence = "Quick red fox jumps over a lazy dog"  # {'polarity': 0.027777777777777773, 'subjectivity': 0.5}
+# sentence = "Wow really?"  # {'polarity': 0.15000000000000002, 'subjectivity': 0.6}
+# sentence = "So cute!"  # {'polarity': 0.625, 'subjectivity': 1.0}
+# sentence = "I hate them!"  # {'polarity': -1.0, 'subjectivity': 0.9}
+# sentence = "My boss is an idiot. "  # {'polarity': -0.8, 'subjectivity': 0.8}
+# sentence = "I wish he would be fired one day."  # {'polarity': 0.0, 'subjectivity': 0.0}
+# sentence = "My boss is amazing! "  # {'polarity': 0.7500000000000001, 'subjectivity': 0.9}
+# sentence = "I wish he would take a better position one day."  # {'polarity': 0.5, 'subjectivity': 0.5}
