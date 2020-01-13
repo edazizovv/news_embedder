@@ -22,6 +22,20 @@ def over(data_frame, text_column, verbose=True):
 
 
 
+'''
+Maskers to recognise NER results from texts. 
+They are also used in forming columns names (with adding to them 'model code' + ' | ').
+'''
+"""
+# flair
+holy_vector = [x['text'] + ' | ' + x['type'] for x in ah['entities']]
+"""
+"""
+# deeppavlov
+n = len(res[0][0])
+# we ignore ordering of entities; we care only about general flags
+hony_vector = [res[0][0][j] + ' | ' + res[1][0][j][(res[1][0][j].find('-') + 1):] for j in range(n) if res[1][0][j] != 'O']
+"""
 
 
 

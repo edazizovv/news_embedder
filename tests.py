@@ -23,7 +23,7 @@ args = ['polarity']
 # result = textblob_assessor(sentence, *args)
 result = pattern_assessor(sentence, *args)
 """
-# """
+"""
 import pandas
 from overhelm import over
 
@@ -45,4 +45,6 @@ data = {'ix': list(range(len(vex))),
 data_frame = pandas.DataFrame(data=data)
 
 data_frame = over(data_frame=data_frame, text_column='texts')
-# """
+"""
+
+
