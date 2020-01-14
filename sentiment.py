@@ -10,6 +10,13 @@
 # stanford corenlp: https://www.thinkinfi.com/2019/02/advanced-nlp-with-stanford-core-nlp.html
 
 # ======================================================================================================================
+"""
+Functional interface is the following:
+input: 'x' as text and '*args'
+output: a dictionary with the following structure: {<sentiment code>: <sentiment value>, ...}
+
+"""
+# ======================================================================================================================
 # TODO: standardise interface of all following functions [1]
 # TODO: check documentation for correct use [2]
 # TODO: check all warnings that are generated during runs [3]
@@ -51,7 +58,8 @@ def flair_assessor(x, *args):
     if predicted[0].labels[0].value == 'POSITIVE':
         score['positive'] = predicted[0].labels[0].score
         score['negative'] = 0
-    return score[key]
+    #return score[key]
+    return score
 
 # ----------------------------------------------------------------------------------------------------------------------
 # nltk
@@ -63,7 +71,8 @@ def nltk_assessor(x, *args):
     key = args[0]
     sid = SentimentIntensityAnalyzer()
     ss = sid.polarity_scores(x)
-    return ss[key]
+    #return ss[key]
+    return ss
 
 # ----------------------------------------------------------------------------------------------------------------------
 # textblob
@@ -76,7 +85,8 @@ def textblob_assessor(x, *args):
     blob = TextBlob(x)
     sss = {}
     sss.update({'polarity': blob.sentiment.polarity, 'subjectivity': blob.sentiment.subjectivity})
-    return sss[key]
+    #return sss[key]
+    return sss
 
 # ----------------------------------------------------------------------------------------------------------------------
 # pattern
@@ -89,7 +99,8 @@ def pattern_assessor(x, *args):
     pt = plaintext(x)
     sss = {}
     sss.update({'polarity': polarity(pt), 'subjectivity': subjectivity(pt)})
-    return sss[key]
+    #return sss[key]
+    return sss
 
 # ----------------------------------------------------------------------------------------------------------------------
 # stanford corenlp

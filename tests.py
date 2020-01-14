@@ -47,4 +47,23 @@ data_frame = pandas.DataFrame(data=data)
 data_frame = over(data_frame=data_frame, text_column='texts')
 """
 
+'''
+from sentiment import flair_assessor
+
+x = "Quick red fox jumps over a lazy dog."
+args = ['a']
+y = flair_assessor(x, *args)
+'''
+from named_entities import deeppavlov_ner_cell
+
+x = "Quick red fox ate an apple. Morgan Chase is bankrupt"
+args = ['onto_bert']
+y = deeppavlov_ner_cell(x, *args)
+
+
+
+
+
+
+
 

@@ -5,6 +5,18 @@
 # https://huggingface.co/transformers/v2.2.0/main_classes/model.html
 # https://huggingface.co/transformers/pretrained_models.html
 
+# ======================================================================================================================
+"""
+Functional interface is the following:
+input: 'x' as text and '*args'
+output: a dictionary with the following structure: {<named entity token>: [<NER tag>, ...]}
+
+"""
+# ======================================================================================================================
+
+# PART 1. COLLECTORS
+
+# PART 2. SEEKERS
 
 # flar:         https://github.com/flairNLP/flair/blob/master/resources/docs/TUTORIAL_2_TAGGING.md
 
@@ -12,13 +24,24 @@ from flair.models import SequenceTagger
 from flair.data import Sentence
 
 # tested
-def flair_ner(x, *args):
+# standardised
+def flair_ner_cell(x, *args):
 
     tagger = SequenceTagger.load('ner')
     sentence = Sentence(x)
     tagger.predict(sentence)
     ah = sentence.to_dict(tag_type='ner')
-    return ah
+    aah = ah['entities']
+    enha = {}
+    for j in range(len(aah)):
+        token = aah[j]['text']
+        code = aah[j]['type']
+        if token in list(enha.keys()):
+            if code not in enha[token]:
+                enha[token].append(code)
+        else:
+            enha[token] = [code]
+    return enha
 
 
 # deeppavlov    https://docs.deeppavlov.ai/en/master/features/models/ner.html
@@ -26,9 +49,9 @@ def flair_ner(x, *args):
 # Or install bert_dp manually: pip install -r deeppavlov/requirements/bert_dp.txt
 
 from deeppavlov import configs, build_model
-
 # tested
-def deeppavlov_ner(x, *args):
+# standardised
+def deeppavlov_ner_cell(x, *args):
 
     which = args[0]
 
@@ -46,20 +69,60 @@ def deeppavlov_ner(x, *args):
     if which == 'dstc2':
         ner_model = build_model(configs.ner.ner_dstc2, download=True)  # done, but miss
 
-    res = ner_model([x])
-    return res
+    if ner_model is None:
+        raise ValueError("Insufficient vespine gas")
+
+    y = ner_model([x])
+
+    enha = {}
+    current_token_l = ''
+    for j in range(len(y[1][0])):
+
+        token = y[0][0][j]
+        code = y[1][0][j]
+
+        if code != 'O':
+
+            code_mark = code[0]
+            code_label = code[2:]
+
+            if code_mark == 'B':
+                current_token_l = token
+
+            if code_mark == 'I':
+                del enha[current_token_l]
+                current_token_l = current_token_l + ' ' + token
+
+            if current_token_l in list(enha.keys()):
+                if code_label not in enha[current_token_l]:
+                    enha[current_token_l].append(code_label)
+            else:
+                enha[current_token_l] = [code_label]
+
+    return enha
 
 # spacy:        https://www.geeksforgeeks.org/python-named-entity-recognition-ner-using-spacy/
 # python -m spacy download en_core_web_sm
 
 import spacy
 # tested
-def spacy_ner(x, *args):
+# standardised
+def spacy_ner_cell(x, *args):
 
     nlp = spacy.load('en_core_web_sm')
     doc = nlp(x)
-    res = {x.text: x.label_ for x in doc.ents}
-    return res
+    enha = {}
+    for x in doc.ents:
+        token = x.text
+        code = x.label_
+
+        if token in list(enha.keys()):
+            if code not in enha[token]:
+                enha[token].append(code)
+        else:
+            enha[token] = [code]
+
+    return enha
 
 # stanford nlp + nltk
 
@@ -77,12 +140,26 @@ a2 = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanf
 
 b = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\stanford-ner.jar'
 # tested
-def nltk_stanford_ner(x, *args):
+# standardised
+def nltk_stanford_ner_cell(x, *args):
 
     st = StanfordNERTagger(a1, b)
     #st = CoreNLPNERTagger(a1, b)
     result = st.tag(x.split())
-    return result
+
+    enha = {}
+    for x in result:
+        token = x[0]
+        code = x[1]
+
+        if code != 'O':
+            if token in list(enha.keys()):
+                if code not in enha[token]:
+                    enha[token].append(code)
+            else:
+                enha[token] = [code]
+
+    return enha
 
 
 # nltk
@@ -91,6 +168,7 @@ def nltk_stanford_ner(x, *args):
 from nltk import word_tokenize, pos_tag, ne_chunk
 from nltk.chunk import conlltags2tree, tree2conlltags
 # tested
+# misunderstood ?
 def nltk_ner(x, *args):
 
     ne_tree = ne_chunk(pos_tag(word_tokenize(x)))
