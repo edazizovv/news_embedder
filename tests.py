@@ -1,3 +1,5 @@
+# TODO: neither with pip, nor with conda file requirements.txt does not work, fix it!
+
 """
 from sentiment import flair_assessor, nltk_assessor, textblob_assessor, pattern_assessor, stanford_assessor
 
@@ -54,13 +56,17 @@ x = "Quick red fox jumps over a lazy dog."
 args = ['a']
 y = flair_assessor(x, *args)
 '''
+'''
 from named_entities import deeppavlov_ner_cell
 
 x = "Quick red fox ate an apple. Morgan Chase is bankrupt"
 args = ['onto_bert']
 y = deeppavlov_ner_cell(x, *args)
-
-
+'''
+from embedding import sister_embeddings as embe
+x = "Quick red fox ate an apple. Morgan Chase is bankrupt"
+args = []
+y = embe(x, *args)
 
 
 

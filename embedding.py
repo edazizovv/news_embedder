@@ -29,6 +29,43 @@ from flair.embeddings import WordEmbeddings, FlairEmbeddings
 
 # CLASSIC WORD EMBEDDINGS
 
+def flair_embeddings(x, *args):
+    code = args[0]
+    embedding = None
+    if code == 'glove':
+        embedding = WordEmbeddings('glove')
+    if code == 'turian':
+        embedding = WordEmbeddings('turian')
+    if code == 'extvec':
+        embedding = WordEmbeddings('extvec')
+    if code == 'crawl':
+        embedding = WordEmbeddings('crawl')
+    if code == 'news':
+        embedding = WordEmbeddings('news')
+    if code == 'twitter':
+        embedding = WordEmbeddings('twitter')
+    if code == 'en-wiki':
+        embedding = WordEmbeddings('en-wiki')
+    if code == 'en-crawl':
+        embedding = WordEmbeddings('en-crawl')
+    if code == 'en-forward':
+        embedding = FlairEmbeddings('en-forward')
+    if code == 'en-backward':
+        embedding = FlairEmbeddings('en-backward')
+    if code == 'news-forward':
+        embedding = FlairEmbeddings('news-forward')
+    if code == 'news-backward':
+        embedding = FlairEmbeddings('news-backward')
+    if code == 'mix-forward':
+        embedding = FlairEmbeddings('mix-forward')
+    if code == 'mix-backward':
+        embedding = FlairEmbeddings('mix-backward')
+    if embedding is None:
+        raise KeyError("Insufficient vespine gas")
+    sentence = Sentence(x)
+    embed = embedding.embed(sentence)
+    return sentence, embed
+
 # GLOVE embeddings
 # embedding = WordEmbeddings('glove')
 
@@ -103,6 +140,10 @@ for token in sentence:
 
 import sister
 
+def sister_embeddings(x, *args):
+    embedding = sister.MeanEmbedding(lang="en")
+    return embedding(x)
+
 """
 embedding = sister.MeanEmbedding(lang="en")
 
@@ -112,6 +153,21 @@ vector = embedding(sentence)  # 300-dim vector
 
 # ----------------------------------------------------------------------------------------------------------------------
 # spaCy
+import spacy
+def spacy_embeddings(x, *args):
+    model = args[0]
+    embedder = None
+    if model == 'sm':
+        embedder = spacy.load('en_core_web_sm')
+    if model == 'md':
+        embedder = spacy.load('en_core_web_md')
+    if model == 'lg':
+        embedder = spacy.load('en_core_web_lg')
+    if embedder is None:
+        raise KeyError("Insufficient vespine gas")
+    doc = embedder(x)
+    return doc.vector
+
 """
 # python -m spacy download en_core_web_sm
 # python -m spacy download en_core_web_md
@@ -129,6 +185,25 @@ embedded = doc.vector
 
 # ----------------------------------------------------------------------------------------------------------------------
 # bert-embedding
+from bert_embedding import BertEmbedding
+def bert_embedding(x, *args):
+    dataset = args[0]
+    embedding = None
+    if dataset == 'book_corpus_wiki_en_uncased':
+        embedding = BertEmbedding(model='bert_12_768_12', dataset_name='book_corpus_wiki_en_uncased')
+    if dataset == 'book_corpus_wiki_en_cased':
+        embedding = BertEmbedding(model='bert_12_768_12', dataset_name='book_corpus_wiki_en_cased')
+    if dataset == 'wiki_multilingual':
+        embedding = BertEmbedding(model='bert_12_768_12', dataset_name='wiki_multilingual')
+    if dataset == 'wiki_multilingual_cased':
+        embedding = BertEmbedding(model='bert_12_768_12', dataset_name='wiki_multilingual_cased')
+    if dataset == 'book_corpus_wiki_en_cased':
+        embedding = BertEmbedding(model='bert_24_1024_16', dataset_name='book_corpus_wiki_en_cased')
+    if embedding is None:
+        raise KeyError("Insufficient vespine gas")
+    result = embedding(x)
+    return result
+
 """
 from bert_embedding import BertEmbedding
 
@@ -149,6 +224,12 @@ result = bert_embedding(sentence)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Universal Sentence Encoder (USE)
+import tensorflow_hub
+def use_embedding(x, *args):
+    embed = tensorflow_hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
+    result = embed(x)
+    return result
+
 """
 import tensorflow_hub
 
