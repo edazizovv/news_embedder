@@ -21,6 +21,7 @@
 # HUGE: we can grab any layers or their combinations from there!
 # http://mccormickml.com/2019/05/14/BERT-word-embeddings-tutorial/#1-loading-pre-trained-bert
 # !
+
 # ----------------------------------------------------------------------------------------------------------------------
 # flair
 
@@ -33,12 +34,16 @@ def flair_embeddings(x, *args):
     code = args[0]
     embedding = None
     if code == 'glove':
+        # with the ex.: torch.Tensor with shape (100, 10)
         embedding = WordEmbeddings('glove')
     if code == 'turian':
+        # with the ex.: torch.Tensor with shape (50, 10)
         embedding = WordEmbeddings('turian')
     if code == 'extvec':
+        # with the ex.: torch.Tensor with shape (300, 10)
         embedding = WordEmbeddings('extvec')
     if code == 'crawl':
+        # with the ex.: torch.Tensor with shape (300, 10)
         embedding = WordEmbeddings('crawl')
     if code == 'news':
         embedding = WordEmbeddings('news')
@@ -185,8 +190,10 @@ embedded = doc.vector
 
 # ----------------------------------------------------------------------------------------------------------------------
 # bert-embedding
-from bert_embedding import BertEmbedding
-def bert_embedding(x, *args):
+# DEPRECATED
+# from bert_embedding import BertEmbedding
+def bert_embeddings(x, *args):
+    x = x[0]
     dataset = args[0]
     embedding = None
     if dataset == 'book_corpus_wiki_en_uncased':
@@ -224,11 +231,15 @@ result = bert_embedding(sentence)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Universal Sentence Encoder (USE)
+import tensorflow
 import tensorflow_hub
-def use_embedding(x, *args):
+def use_embeddings(x, *args):
+
+    #sess = tensorflow.Session()
+    #with sess.as_default():
     embed = tensorflow_hub.load("https://tfhub.dev/google/universal-sentence-encoder/4")
     result = embed(x)
-    return result
+    return result.numpy()
 
 """
 import tensorflow_hub

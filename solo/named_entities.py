@@ -20,12 +20,13 @@ output: a dictionary with the following structure: {<named entity token>: [<NER 
 
 # flar:         https://github.com/flairNLP/flair/blob/master/resources/docs/TUTORIAL_2_TAGGING.md
 
-from flair.models import SequenceTagger
-from flair.data import Sentence
+
 
 # tested
 # standardised
 def flair_ner_cell(x, *args):
+    from flair.models import SequenceTagger
+    from flair.data import Sentence
 
     tagger = SequenceTagger.load('ner')
     sentence = Sentence(x)
@@ -48,10 +49,11 @@ def flair_ner_cell(x, *args):
 # So, all you need is to run python -m deeppavlov install ... (ex: ner_ontonotes_bert_mult)
 # Or install bert_dp manually: pip install -r deeppavlov/requirements/bert_dp.txt
 
-from deeppavlov import configs, build_model
+
 # tested
 # standardised
 def deeppavlov_ner_cell(x, *args):
+    from deeppavlov import configs, build_model
 
     which = args[0]
 
@@ -66,8 +68,8 @@ def deeppavlov_ner_cell(x, *args):
         ner_model = build_model(configs.ner.ner_conll2003_bert, download=True)  # done
     if which == 'conl':
         ner_model = build_model(configs.ner.ner_conll2003, download=True)  # done
-    if which == 'dstc2':
-        ner_model = build_model(configs.ner.ner_dstc2, download=True)  # done, but miss
+    # if which == 'dstc2':  # deprecated
+    #     ner_model = build_model(configs.ner.ner_dstc2, download=True)  # done, but miss
 
     if ner_model is None:
         raise ValueError("Insufficient vespine gas")
@@ -104,10 +106,11 @@ def deeppavlov_ner_cell(x, *args):
 # spacy:        https://www.geeksforgeeks.org/python-named-entity-recognition-ner-using-spacy/
 # python -m spacy download en_core_web_sm
 
-import spacy
+
 # tested
 # standardised
 def spacy_ner_cell(x, *args):
+    import spacy
 
     nlp = spacy.load('en_core_web_sm')
     doc = nlp(x)
@@ -128,20 +131,21 @@ def spacy_ner_cell(x, *args):
 
 # https://textminingonline.com/how-to-use-stanford-named-entity-recognizer-ner-in-python-nltk-and-other-programming-languages
 
-from nltk.tag import StanfordNERTagger
-#from nltk.tag.corenlp import CoreNLPNERTagger
 
-import os
-java_path = "C:/Program Files/Java/jdk-13.0.1/bin/java.exe"
-os.environ['JAVAHOME'] = java_path
-
-a1 = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\classifiers\\english.all.3class.distsim.crf.ser.gz'
-a2 = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\classifiers\\english.all.3class.distsim.prop'
-
-b = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\stanford-ner.jar'
 # tested
 # standardised
 def nltk_stanford_ner_cell(x, *args):
+    from nltk.tag import StanfordNERTagger
+    # from nltk.tag.corenlp import CoreNLPNERTagger
+
+    import os
+    java_path = "C:/Program Files/Java/jdk-13.0.1/bin/java.exe"
+    os.environ['JAVAHOME'] = java_path
+    # TODO: configure these paths!
+    a1 = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\classifiers\\english.all.3class.distsim.crf.ser.gz'
+    a2 = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\classifiers\\english.all.3class.distsim.prop'
+
+    b = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\stanford-ner.jar'
 
     st = StanfordNERTagger(a1, b)
     #st = CoreNLPNERTagger(a1, b)
@@ -165,11 +169,12 @@ def nltk_stanford_ner_cell(x, *args):
 # nltk
 # https://nlpforhackers.io/named-entity-extraction/
 
-from nltk import word_tokenize, pos_tag, ne_chunk
-from nltk.chunk import conlltags2tree, tree2conlltags
+
 # tested
 # misunderstood ?
 def nltk_ner(x, *args):
+    from nltk import word_tokenize, pos_tag, ne_chunk
+    from nltk.chunk import conlltags2tree, tree2conlltags
 
     ne_tree = ne_chunk(pos_tag(word_tokenize(x)))
     iob_tagged = tree2conlltags(ne_tree)

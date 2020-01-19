@@ -14,30 +14,30 @@
 Functional interface is the following:
 input: 'x' as text and '*args'
 output: a dictionary with the following structure: {<sentiment code>: <sentiment value>, ...}
-
 """
 # ======================================================================================================================
 # TODO: standardise interface of all following functions [1]
 # TODO: check documentation for correct use [2]
 # TODO: check all warnings that are generated during runs [3]
 # CURRENT TARGET: LVL 1 FOR ALL
-import pandas
+# import pandas
 # ----------------------------------------------------------------------------------------------------------------------
 # flair
 
-import numpy
-from flair.data import Sentence
-from flair.models import TextClassifier
+# import numpy
 
-classifier = TextClassifier.load('en-sentiment')
+
+
 
 # tested
 # standardised
 def flair_assessor(x, *args):
+    from flair.data import Sentence
+    from flair.models import TextClassifier
+    classifier = TextClassifier.load('en-sentiment')
     """
     x   str     A string that contains some sentences
     """
-    key = args[0]
     sentence = Sentence(x)
 
     # predict NER tags
@@ -61,13 +61,16 @@ def flair_assessor(x, *args):
     #return score[key]
     return score
 
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # nltk
 
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
+
 # tested
 # standardised
 def nltk_assessor(x, *args):
+    from nltk.sentiment.vader import SentimentIntensityAnalyzer
     key = args[0]
     sid = SentimentIntensityAnalyzer()
     ss = sid.polarity_scores(x)
@@ -77,10 +80,11 @@ def nltk_assessor(x, *args):
 # ----------------------------------------------------------------------------------------------------------------------
 # textblob
 
-from textblob import TextBlob
+
 # tested
 # standardised
 def textblob_assessor(x, *args):
+    from textblob import TextBlob
     key = args[0]
     blob = TextBlob(x)
     sss = {}
@@ -91,10 +95,11 @@ def textblob_assessor(x, *args):
 # ----------------------------------------------------------------------------------------------------------------------
 # pattern
 
-from pattern.web import plaintext
-from pattern.en import polarity, subjectivity
+
 # tested
 def pattern_assessor(x, *args):
+    from pattern.web import plaintext
+    from pattern.en import polarity, subjectivity
     key = args[0]
     pt = plaintext(x)
     sss = {}
@@ -112,13 +117,15 @@ def pattern_assessor(x, *args):
 # !
 
 
-from pycorenlp import StanfordCoreNLP
 
 
-nlp = StanfordCoreNLP('http://localhost:9000')
+
+
 
 # ? misunderstood
 def stanford_assessor(x):
+    from pycorenlp import StanfordCoreNLP
+    nlp = StanfordCoreNLP('http://localhost:9000')
     # here it analyses every sentence -- but we need to analyse full text
     # need some aggregation?
 
