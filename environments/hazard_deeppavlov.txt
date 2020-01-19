@@ -1,0 +1,7 @@
+pip install deeppavlov
+
+python -m deeppavlov install ner_ontonotes_bert_mult
+python -m deeppavlov install ner_ontonotes_bert
+python -m deeppavlov install ner_ontonotes
+python -m deeppavlov install ner_conll2003_bert
+python -m deeppavlov install ner_conll2003

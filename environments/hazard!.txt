@@ -1,0 +1,5 @@
+conda install -c anaconda xlrd
+conda install -c anaconda openpyxl
+conda install -c anaconda numpy
+conda install -c anaconda scipy
+conda install -c anaconda pandas
