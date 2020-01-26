@@ -1,22 +1,24 @@
 
 
+class Config:
+    def __init__(self):
+        self.virtual = VirtualConfig()
+        self.paths = Paths()
+        self.text_column = 'Text'
+        self.date_column = 'DateTime'
+
+
 class VirtualConfig:
-    ...
-
-
-class OverhelmConfig:
-    ...
-
-
-class SentimentConfig:
     def __init__(self):
-        from mass.sentiment import pattern_assessor
-        self.names = ['pattern']
-        self.functions = {'pattern': pattern_assessor}
-        self.parameters = {'pattern': []}
+        self.flair = 'E:/venv/hazard_flair/python.exe'
+        self.nltk = 'E:/venv/hazard_nltk/python.exe'
+        self.textblob = 'E:/venv/hazard_textblob/python.exe'
+        self.pattern = 'E:/venv/hazard_pattern/python.exe'
 
-class GeneralConfig:
+
+class Paths:
     def __init__(self):
-        self.text = 'Text'
-        self.datetime = 'DateTime'
+        self.store = './data/'
+        self.opened = 'source.xlsx'
+        self.closed = 'gained.xlsx'
 
