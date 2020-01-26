@@ -1,7 +1,7 @@
 import pandas
 
 from mass.sentiment import flair_assessor, pattern_assessor, textblob_assessor, nltk_assessor
-
+from mass.ner import flair_ner_cell
 """
 def sentiment_pool(data_frame):
     general_configurator = GeneralConfig()
@@ -37,8 +37,17 @@ def sentiment_pool(data_frame, names, config):
     data_frame = pandas.concat(objs=(data_frame, flair_data, pattern_data, textblob_data, nltk_data), axis=1)
     return data_frame
 
-def ner():
-    ...
+
+def ner_pool(data_frame, names, config):
+    if 'flair' in names:
+        flair_data = flair_ner_cell(data_frame, config)
+    else:
+        flair_data = pandas.DataFrame()
+
+    #data_frame = pandas.concat(objs=(data_frame, flair_data, pattern_data, textblob_data, nltk_data), axis=1)
+    data_frame = flair_data
+    return data_frame
+
 
 def embedding():
     ...
