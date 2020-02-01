@@ -6,6 +6,7 @@ class Config:
         self.paths = Paths()
         self.text_column = 'Text'
         self.date_column = 'DateTime'
+        self.param = None
 
 
 class VirtualConfig:
@@ -14,6 +15,8 @@ class VirtualConfig:
         self.nltk = 'E:/venv/hazard_nltk/python.exe'
         self.textblob = 'E:/venv/hazard_textblob/python.exe'
         self.pattern = 'E:/venv/hazard_pattern/python.exe'
+        self.deeppavlov = 'E:/venv/hazard_deeppavlov/python.exe'
+        self.spacy = 'E:/venv/hazard_spacy/python.exe'
 
 
 class Paths:

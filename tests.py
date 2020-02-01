@@ -77,9 +77,8 @@ y = embe(x, *args)
 '''
 
 
-#from overhelm import sentiment_pool
+
 import pandas
-from mass.sentiment import flair_assessor, pattern_assessor, textblob_assessor, nltk_assessor
 
 data = pandas.DataFrame(data={'Text': ["Quick red fox jumps over a lazy dog. Wow really?",
                                        "Quick red fox jumps over a lazy dog. So cute!",
@@ -98,9 +97,10 @@ data = pandas.DataFrame(data={'Text': ["Quick red fox jumps over a lazy dog. Wow
                                        "A new trade deal has been made, Trump says",
                                        "Elon Musk's invaders caused a global meltdown on Mars, aliens' press-release claims"]})
 
-#result_data = nltk_assessor(data)
-from overhelm import ner_pool
+from overhelm import sentiment_pool, ner_pool
 from configuration import Config
 config = Config()
-result_data = ner_pool(data, ['flair'], config)
+config.param = ''
+result_data = ner_pool(data, ['nltk_stanford'], config)
+
 

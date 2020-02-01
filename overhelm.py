@@ -1,21 +1,9 @@
 import pandas
 
 from mass.sentiment import flair_assessor, pattern_assessor, textblob_assessor, nltk_assessor
-from mass.ner import flair_ner_cell
-"""
-def sentiment_pool(data_frame):
-    general_configurator = GeneralConfig()
-    sentiment_configurator = SentimentConfig()
-    data = data_frame[general_configurator.text].values
-    for name in sentiment_configurator.names:
-        func = sentiment_configurator.functions[name]
-        args = sentiment_configurator.parameters[name]
-        columns, values = func(data, *args)
-        columns = [(name + '__' + column) for column in columns]
-        add_data = pandas.DataFrame(data=values, columns=columns)
-        data_frame = pandas.concat((data_frame, add_data), axis=1)
-    return data_frame
-"""
+from mass.ner import flair_ner_cell, deeppavlov_ner_cell, spacy_ner_cell, nltk_stanford_ner_cell
+
+
 def sentiment_pool(data_frame, names, config):
     if 'flair' in names:
         flair_data = flair_assessor(data_frame, config)
@@ -43,9 +31,19 @@ def ner_pool(data_frame, names, config):
         flair_data = flair_ner_cell(data_frame, config)
     else:
         flair_data = pandas.DataFrame()
-
-    #data_frame = pandas.concat(objs=(data_frame, flair_data, pattern_data, textblob_data, nltk_data), axis=1)
-    data_frame = flair_data
+    if 'deeppavlov' in names:
+        deeppavlov_data = deeppavlov_ner_cell(data_frame, config)
+    else:
+        deeppavlov_data = pandas.DataFrame()
+    if 'spacy' in names:
+        spacy_data = spacy_ner_cell(data_frame, config)
+    else:
+        spacy_data = pandas.DataFrame()
+    if 'nltk_stanford' in names:
+        nltk_stanford_data = nltk_stanford_ner_cell(data_frame, config)
+    else:
+        nltk_stanford_data = pandas.DataFrame()
+    data_frame = pandas.concat(objs=(data_frame, flair_data, deeppavlov_data, spacy_data, nltk_stanford_data), axis=1)
     return data_frame
 
 
