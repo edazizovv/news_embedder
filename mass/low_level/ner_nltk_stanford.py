@@ -19,46 +19,15 @@ array = in_data['Text'].values
 st = StanfordNERTagger(a1, b)
 # st = CoreNLPNERTagger(a1, b)
 
-
-# Step 1. We need a global vocabulary
-
-general = {}
-general_columns = []
-for x in array:
-    resu = st.tag(x.split())
-
-    enha = {}
-    for x in resu:
-        token = x[0]
-        code = x[1]
-
-        if code != 'O':
-            if token in list(enha.keys()):
-                if code not in enha[token]:
-                    enha[token].append(code)
-            else:
-                enha[token] = [code]
-
-    for key in enha.keys():
-        for value in enha[key]:
-            if key in general.keys():
-                if value in general[key].keys():
-                    pass
-                else:
-                    named = '[{}]_{}'.format(key, value)
-                    general[key][value] = named
-                    general_columns.append(named)
-            else:
-                named = '[{}]_{}'.format(key, value)
-                general[key] = {}
-                general[key][value] = named
-                general_columns.append(named)
-
 # Step 2. Make our data (with the vocabulary navigating columns)
 
+start = True
+start_len = 0
+j = 0
 result = []
-for x in array:
-    resu = st.tag(x.split())
+columns = []
+for y in array:
+    resu = st.tag(y.split())
 
     enha = {}
     for x in resu:
@@ -72,18 +41,41 @@ for x in array:
             else:
                 enha[token] = [code]
 
-    values = numpy.zeros(shape=(1, len(general_columns)))
-    for key in enha.keys():
-        for value in enha[key]:
-            ix = general_columns.index(general[key][value])
-            values[0, ix] = 1
-    result.append(values)
+    # h = list(enha.keys())
+    add_c = []
+
+    for kk in enha.keys():
+        for vv in enha[kk]:
+            appie = "[{}]_['{}']".format(kk, vv)
+            add_c.append(appie)
+    outers = [z for z in add_c if z not in columns]
+    columns = columns + outers
+    h = outers
+
+    if len(h) > 0:
+        start_len = start_len + len(h)
+        if start:
+            start = False
+        else:
+            for g in range(len(result)):
+                gle = len(h)
+                result[g] = numpy.concatenate((result[g], numpy.zeros(shape=(1, gle))), axis=1)
+
+        values = numpy.zeros(shape=(1, start_len))
+
+        for key in enha.keys():
+            for value in enha[key]:
+                appi = "[{}]_['{}']".format(key, value)
+                ix = columns.index(appi)
+                values[0, ix] = 1
+        result.append(values)
+
+    else:
+        result.append(numpy.zeros(shape=(1, start_len)))
 
 
 result = numpy.concatenate(result, axis=0)
 
-
-
-data = pandas.DataFrame(data=result, columns=general_columns)
-print('saved')
+data = pandas.DataFrame(data=result, columns=columns)
+print('saving')
 data.to_excel('./data/gained.xlsx', index=False)

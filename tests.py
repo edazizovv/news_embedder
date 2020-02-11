@@ -97,10 +97,18 @@ data = pandas.DataFrame(data={'Text': ["Quick red fox jumps over a lazy dog. Wow
                                        "A new trade deal has been made, Trump says",
                                        "Elon Musk's invaders caused a global meltdown on Mars, aliens' press-release claims"]})
 
+#data = pandas.read_excel('C:\\Users\\MainUser\\Desktop\\gex.xlsx')[['Title']].rename(columns={'Title': 'Text'})
+data = pandas.read_excel('C:\\Sygm\\RAMP\\IP-02\\OSTRTA\\Our Research\\The Article\\gex.xlsx')[['Title']].rename(columns={'Title': 'Text'})
+data = data.drop_duplicates().reset_index(drop=True)
 from overhelm import sentiment_pool, ner_pool
 from configuration import Config
 config = Config()
-config.param = ''
-result_data = ner_pool(data, ['nltk_stanford'], config)
+config.param = 'sm'
+
+import time
+run_time = time.time()
+print(data.shape[0])
+result_data = ner_pool(data, ['spacy'], config)
+run_time = time.time() - run_time
 
 
