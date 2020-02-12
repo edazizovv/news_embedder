@@ -1,4 +1,3 @@
-import numpy
 import pandas
 import subprocess
 
@@ -11,7 +10,7 @@ output: a dictionary with the following structure: {<sentiment code>: <sentiment
 
 
 # flair
-def flair_assessor(data, config, *args):
+def flair_assessor(data, config):
     data.to_excel((config.paths.store + config.paths.opened), index=False)
     subprocess.call([config.virtual.flair, './mass/low_level/sentiment_flair.py'])
     data = pandas.read_excel((config.paths.store + config.paths.closed))
@@ -19,22 +18,22 @@ def flair_assessor(data, config, *args):
 
 
 # nltk
-def nltk_assessor(data, config, *args):
+def nltk_assessor(data, config):
     data.to_excel((config.paths.store + config.paths.opened), index=False)
-    resy = subprocess.call([config.virtual.nltk, './mass/low_level/sentiment_nltk.py'])
+    subprocess.call([config.virtual.nltk, './mass/low_level/sentiment_nltk.py'])
     data = pandas.read_excel((config.paths.store + config.paths.closed))
     return data
 
 # textblob
-def textblob_assessor(data, config, *args):
+def textblob_assessor(data, config):
     data.to_excel((config.paths.store + config.paths.opened), index=False)
-    resy = subprocess.call([config.virtual.textblob, './mass/low_level/sentiment_textblob.py'])
+    subprocess.call([config.virtual.textblob, './mass/low_level/sentiment_textblob.py'])
     data = pandas.read_excel((config.paths.store + config.paths.closed))
     return data
 
 # pattern
-def pattern_assessor(data, config, *args):
+def pattern_assessor(data, config):
     data.to_excel((config.paths.store + config.paths.opened), index=False)
-    resy = subprocess.call([config.virtual.pattern, './mass/low_level/sentiment_pattern.py'])
+    subprocess.call([config.virtual.pattern, './mass/low_level/sentiment_pattern.py'])
     data = pandas.read_excel((config.paths.store + config.paths.closed))
     return data

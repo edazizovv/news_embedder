@@ -2,6 +2,7 @@ import pandas
 
 from mass.sentiment import flair_assessor, pattern_assessor, textblob_assessor, nltk_assessor
 from mass.ner import flair_ner_cell, deeppavlov_ner_cell, spacy_ner_cell, nltk_stanford_ner_cell
+from mass.embedding import flair_embedder, sister_embedder, spacy_embedder, use_embedder
 
 
 def sentiment_pool(data_frame, names, config):
@@ -47,8 +48,25 @@ def ner_pool(data_frame, names, config):
     return data_frame
 
 
-def embedding():
-    ...
+def embedding_pool(data_frame, names, config):
+    if 'flair' in names:
+        flair_data = flair_embedder(data_frame, config)
+    else:
+        flair_data = pandas.DataFrame()
+    if 'sister' in names:
+        sister_data = sister_embedder(data_frame, config)
+    else:
+        sister_data = pandas.DataFrame()
+    if 'spacy' in names:
+        spacy_data = spacy_embedder(data_frame, config)
+    else:
+        spacy_data = pandas.DataFrame()
+    if 'use' in names:
+        use_data = use_embedder(data_frame, config)
+    else:
+        use_data = pandas.DataFrame()
+    data_frame = pandas.concat(objs=(data_frame, flair_data, sister_data, spacy_data, use_data), axis=1)
+    return data_frame
 
 
 

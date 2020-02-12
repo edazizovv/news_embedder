@@ -1,4 +1,3 @@
-print('hello there?')
 from pattern.web import plaintext
 from pattern.en import polarity, subjectivity
 

@@ -100,15 +100,16 @@ data = pandas.DataFrame(data={'Text': ["Quick red fox jumps over a lazy dog. Wow
 #data = pandas.read_excel('C:\\Users\\MainUser\\Desktop\\gex.xlsx')[['Title']].rename(columns={'Title': 'Text'})
 data = pandas.read_excel('C:\\Sygm\\RAMP\\IP-02\\OSTRTA\\Our Research\\The Article\\gex.xlsx')[['Title']].rename(columns={'Title': 'Text'})
 data = data.drop_duplicates().reset_index(drop=True)
-from overhelm import sentiment_pool, ner_pool
+from overhelm import sentiment_pool, ner_pool, embedding_pool
 from configuration import Config
 config = Config()
-config.param = 'sm'
+config.params = {}
 
 import time
 run_time = time.time()
 print(data.shape[0])
-result_data = ner_pool(data, ['spacy'], config)
+#result_data = ner_pool(data, ['spacy'], config)
+#result_data = sentiment_pool(data, ['nltk'], config)
+result_data = embedding_pool(data, ['use'], config)
 run_time = time.time() - run_time
-
 
