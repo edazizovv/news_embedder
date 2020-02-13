@@ -1,9 +1,7 @@
 import json
 import numpy
 import pandas
-
-from flair.models import SequenceTagger
-from flair.data import Sentence
+from deeppavlov import configs, build_model
 
 in_data = pandas.read_excel('./data/source.xlsx')
 array = in_data['Text'].values
@@ -11,35 +9,59 @@ array = in_data['Text'].values
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-tagger = SequenceTagger.load('ner')
+which = param['model']
+
+ner_model = None
+if which == 'onto_bert_mult':
+    ner_model = build_model(configs.ner.ner_ontonotes_bert_mult, download=True)  # done
+if which == 'onto_bert':
+    ner_model = build_model(configs.ner.ner_ontonotes_bert, download=True)  # done
+if which == 'onto':
+    ner_model = build_model(configs.ner.ner_ontonotes, download=True)  # done
+if which == 'conl_bert':
+    ner_model = build_model(configs.ner.ner_conll2003_bert, download=True)  # done
+if which == 'conl':
+    ner_model = build_model(configs.ner.ner_conll2003, download=True)  # done
+if ner_model is None:
+    raise ValueError("Insufficient vespine gas")
 
 # Step 2. Make our data (with the vocabulary navigating columns)
 
 start = True
 start_len = 0
-j = 0
 result = []
 columns = []
-for y in array:
-    sentence = Sentence(y)
-    tagger.predict(sentence)
-    ah = sentence.to_dict(tag_type='ner')
-    aah = ah['entities']
+for x in array:
+    y = ner_model([x])
+
     enha = {}
-    for j in range(len(aah)):
-        token = aah[j]['text']
-        code = aah[j]['type']
-        if token in list(enha.keys()):
-            if code not in enha[token]:
-                enha[token].append(code)
-        else:
-            enha[token] = [code]
+    current_token_l = ''
+    for jj in range(len(y[1][0])):
+
+        token = y[0][0][jj]
+        code = y[1][0][jj]
+
+        if code != 'O':
+
+            code_mark = code[0]
+            code_label = code[2:]
+
+            if code_mark == 'B':
+                current_token_l = token
+
+            if code_mark == 'I':
+                del enha[current_token_l]
+                current_token_l = current_token_l + ' ' + token
+
+            if current_token_l in list(enha.keys()):
+                if code_label not in enha[current_token_l]:
+                    enha[current_token_l].append(code_label)
+            else:
+                enha[current_token_l] = [code_label]
 
     # h = list(enha.keys())
     add_c = []
-    # keys_s, values_s = list(enha.keys()), list(enha.values())
-    #print('================')
-    #print(y)
+
     for kk in enha.keys():
         for vv in enha[kk]:
             appie = "[{}]_['{}']".format(kk, vv)
@@ -47,10 +69,7 @@ for y in array:
     outers = [z for z in add_c if z not in columns]
     columns = columns + outers
     h = outers
-    #print('-------------')
-    #print(enha)
-    #print(h)
-    #print(columns)
+
     if len(h) > 0:
         start_len = start_len + len(h)
         if start:
@@ -69,7 +88,6 @@ for y in array:
                 values[0, ix] = 1
         result.append(values)
 
-        #print(result)
     else:
         result.append(numpy.zeros(shape=(1, start_len)))
 
@@ -83,5 +101,5 @@ if 'code' in param:
     code_ = param['code'] + '_'
 else:
     code_ = ''
-columns = {j: 'R_FLR_{}{}'.format(code_, j) for j in data.columns.values}
+columns = {j: 'R_DPA_{}{}'.format(code_, j) for j in data.columns.values}
 data.rename(columns=columns).to_excel('./data/gained.xlsx', index=False)

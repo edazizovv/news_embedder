@@ -109,7 +109,7 @@ import time
 run_time = time.time()
 print(data.shape[0])
 #result_data = ner_pool(data, ['spacy'], config)
-#result_data = sentiment_pool(data, ['nltk'], config)
-result_data = embedding_pool(data, ['use'], config)
+result_data = sentiment_pool(data, ['flair'], config)
+#result_data = embedding_pool(data, ['use'], config)
 run_time = time.time() - run_time
 

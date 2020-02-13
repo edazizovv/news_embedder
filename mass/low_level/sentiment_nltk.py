@@ -1,5 +1,6 @@
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+import json
 import numpy
 import pandas
 
@@ -8,6 +9,9 @@ columns = ['neg', 'neu', 'pos', 'compound']
 
 in_data = pandas.read_excel('./data/source.xlsx')
 array = in_data['Text'].values
+
+with open('./data/params.json', 'r') as param_:
+    param = json.load(param_)
 
 sid = SentimentIntensityAnalyzer()
 
@@ -18,8 +22,15 @@ for x in array:
     result.append(values.reshape(1, -1))
 result = numpy.concatenate(result, axis=0)
 
-columns = [('NLTK' + '__' + column) for column in columns]
+# columns = [('NLTK' + '__' + column) for column in columns]
 data = pandas.DataFrame(data=result, columns=columns)
-print('saved')
-data.to_excel('./data/gained.xlsx', index=False)
+print('saving')
+# data.to_excel('./data/gained.xlsx', index=False)
+
+if 'code' in param:
+    code_ = param['code'] + '_'
+else:
+    code_ = ''
+columns = {j: 'S_NTK_{}{}'.format(code_, j) for j in data.columns.values}
+data.rename(columns=columns).to_excel('./data/gained.xlsx', index=False)
 

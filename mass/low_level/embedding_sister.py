@@ -24,4 +24,11 @@ for x in array:
 result = numpy.concatenate(result, axis=0)
 
 print('saving')
-pandas.DataFrame(result).to_excel('./data/gained.xlsx', index=False)
+# pandas.DataFrame(result).to_excel('./data/gained.xlsx', index=False)
+
+if 'code' in param:
+    code_ = param['code'] + '_'
+else:
+    code_ = ''
+columns = ['E_SSR_{}{}'.format(code_, j) for j in range(result.shape[1])]
+pandas.DataFrame(data=result, columns=columns).to_excel('./data/gained.xlsx', index=False)

@@ -1,3 +1,4 @@
+import json
 import numpy
 import pandas
 from flair.data import Sentence
@@ -11,6 +12,9 @@ columns = ['positive', 'negative']
 
 in_data = pandas.read_excel('./data/source.xlsx')
 array = in_data['Text'].values
+
+with open('./data/params.json', 'r') as param_:
+    param = json.load(param_)
 
 for x in array:
     sentence = Sentence(x)
@@ -32,7 +36,14 @@ result = numpy.concatenate(result, axis=0)
 # return score[key]
 # return score
 
-columns = [('FLAIR' + '__' + column) for column in columns]
+# columns = [('FLAIR' + '__' + column) for column in columns]
 data = pandas.DataFrame(data=result, columns=columns)
-print('saved')
-data.to_excel('./data/gained.xlsx', index=False)
+print('saving')
+# data.to_excel('./data/gained.xlsx', index=False)
+
+if 'code' in param:
+    code_ = param['code'] + '_'
+else:
+    code_ = ''
+columns = {j: 'S_FLR_{}{}'.format(code_, j) for j in data.columns.values}
+data.rename(columns=columns).to_excel('./data/gained.xlsx', index=False)

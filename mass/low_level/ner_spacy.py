@@ -1,9 +1,7 @@
 import json
 import numpy
 import pandas
-
-from flair.models import SequenceTagger
-from flair.data import Sentence
+import spacy
 
 in_data = pandas.read_excel('./data/source.xlsx')
 array = in_data['Text'].values
@@ -11,7 +9,17 @@ array = in_data['Text'].values
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-tagger = SequenceTagger.load('ner')
+model = param['model']
+
+nlp = None
+if model == 'sm':
+    nlp = spacy.load('en_core_web_sm')
+if model == 'md':
+    nlp = spacy.load('en_core_web_md')
+if model == 'lg':
+    nlp = spacy.load('en_core_web_lg')
+if nlp is None:
+    raise ValueError("Insufficient vespine gas")
 
 # Step 2. Make our data (with the vocabulary navigating columns)
 
@@ -21,14 +29,13 @@ j = 0
 result = []
 columns = []
 for y in array:
-    sentence = Sentence(y)
-    tagger.predict(sentence)
-    ah = sentence.to_dict(tag_type='ner')
-    aah = ah['entities']
+    doc = nlp(y)
+
     enha = {}
-    for j in range(len(aah)):
-        token = aah[j]['text']
-        code = aah[j]['type']
+    for x in doc.ents:
+        token = x.text
+        code = x.label_
+
         if token in list(enha.keys()):
             if code not in enha[token]:
                 enha[token].append(code)
@@ -37,9 +44,7 @@ for y in array:
 
     # h = list(enha.keys())
     add_c = []
-    # keys_s, values_s = list(enha.keys()), list(enha.values())
-    #print('================')
-    #print(y)
+
     for kk in enha.keys():
         for vv in enha[kk]:
             appie = "[{}]_['{}']".format(kk, vv)
@@ -47,10 +52,7 @@ for y in array:
     outers = [z for z in add_c if z not in columns]
     columns = columns + outers
     h = outers
-    #print('-------------')
-    #print(enha)
-    #print(h)
-    #print(columns)
+
     if len(h) > 0:
         start_len = start_len + len(h)
         if start:
@@ -69,9 +71,9 @@ for y in array:
                 values[0, ix] = 1
         result.append(values)
 
-        #print(result)
     else:
         result.append(numpy.zeros(shape=(1, start_len)))
+
 
 result = numpy.concatenate(result, axis=0)
 
@@ -83,5 +85,5 @@ if 'code' in param:
     code_ = param['code'] + '_'
 else:
     code_ = ''
-columns = {j: 'R_FLR_{}{}'.format(code_, j) for j in data.columns.values}
+columns = {j: 'R_SPC_{}{}'.format(code_, j) for j in data.columns.values}
 data.rename(columns=columns).to_excel('./data/gained.xlsx', index=False)
