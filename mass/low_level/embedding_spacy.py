@@ -6,7 +6,7 @@ import spacy
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-in_data = pandas.read_excel('./data/source.xlsx')
+in_data = pandas.read_excel(param['data']['opened'])
 array = in_data[param['data']['text']].values
 
 model = param['model']['model']

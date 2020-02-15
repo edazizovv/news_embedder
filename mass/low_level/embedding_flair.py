@@ -7,7 +7,7 @@ from flair.embeddings import DocumentPoolEmbeddings, DocumentRNNEmbeddings, Sent
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-in_data = pandas.read_excel('./data/source.xlsx')
+in_data = pandas.read_excel(param['data']['opened'])
 array = in_data[param['data']['text']].values
 
 layers = param['model']['models']
@@ -51,4 +51,4 @@ if 'code' in param:
 else:
     code_ = ''
 columns = ['E_FLR_{}{}'.format(code_, j) for j in range(result.shape[1])]
-pandas.DataFrame(data=result, columns=columns).to_excel('./data/gained.xlsx', index=False)
+pandas.DataFrame(data=result, columns=columns).to_excel(param['data']['closed'], index=False)

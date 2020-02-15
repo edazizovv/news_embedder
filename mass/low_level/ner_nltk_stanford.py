@@ -9,7 +9,7 @@ from nltk.tag import StanfordNERTagger
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-in_data = pandas.read_excel('./data/source.xlsx')
+in_data = pandas.read_excel(param['data']['opened'])
 array = in_data[param['data']['text']].values
 
 os.environ['JAVAHOME'] = param['adds']['jdk']
@@ -82,4 +82,4 @@ if 'code' in param:
 else:
     code_ = ''
 columns = {j: 'R_SFD_{}{}'.format(code_, j) for j in data.columns.values}
-data.rename(columns=columns).to_excel('./data/gained.xlsx', index=False)
+pandas.DataFrame(data=result, columns=columns).to_excel('./data/gained.xlsx', index=False)

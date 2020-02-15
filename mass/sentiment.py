@@ -1,56 +1,59 @@
+import os
 import json
 import pandas
 import subprocess
 from configuration import form_factor
 
-"""
-Functional interface is the following:
-input: 'array' as 'list' of 'str'; conditional '*args'
-output: a dictionary with the following structure: {<sentiment code>: <sentiment value>, ...}
-
-"""
-
-opened = './data/source.xlsx'
-closed = './data/gained.xlsx'
+current_wd = os.getcwd()
+project_dir = os.path.dirname(os.path.dirname(__file__))
+params = os.path.join(project_dir, 'data\\params.json')
 
 
 # flair
 def flair_assessor(data, config):
-    data.to_excel(opened, index=False)
+    data.to_excel(config.data.opened, index=False)
     form = form_factor(config)
-    with open('./data/params.json', 'w') as js:
+    with open(params, 'w') as js:
         json.dump(form, js)
-    subprocess.call([config.virtual.flair, './mass/low_level/sentiment_flair.py'])
-    data = pandas.read_excel(closed)
+    os.chdir(project_dir)
+    subprocess.call([config.virtual.flair, os.path.join(project_dir, 'mass\\low_level\\sentiment_flair.py')])
+    os.chdir(current_wd)
+    data = pandas.read_excel(config.data.closed)
     return data
 
 
 # nltk
 def nltk_assessor(data, config):
-    data.to_excel(opened, index=False)
+    data.to_excel(config.data.opened, index=False)
     form = form_factor(config)
-    with open('./data/params.json', 'w') as js:
+    with open(params, 'w') as js:
         json.dump(form, js)
-    subprocess.call([config.virtual.nltk, './mass/low_level/sentiment_nltk.py'])
-    data = pandas.read_excel(closed)
+    os.chdir(project_dir)
+    subprocess.call([config.virtual.nltk, os.path.join(project_dir, 'mass\\low_level\\sentiment_nltk.py')])
+    os.chdir(current_wd)
+    data = pandas.read_excel(config.data.closed)
     return data
 
 # textblob
 def textblob_assessor(data, config):
-    data.to_excel(opened, index=False)
+    data.to_excel(config.data.opened, index=False)
     form = form_factor(config)
-    with open('./data/params.json', 'w') as js:
+    with open(params, 'w') as js:
         json.dump(form, js)
-    subprocess.call([config.virtual.textblob, './mass/low_level/sentiment_textblob.py'])
-    data = pandas.read_excel(closed)
+    os.chdir(project_dir)
+    subprocess.call([config.virtual.textblob, os.path.join(project_dir, 'mass\\low_level\\sentiment_textblob.py')])
+    os.chdir(current_wd)
+    data = pandas.read_excel(config.data.closed)
     return data
 
 # pattern
 def pattern_assessor(data, config):
-    data.to_excel(opened, index=False)
+    data.to_excel(config.data.opened, index=False)
     form = form_factor(config)
-    with open('./data/params.json', 'w') as js:
+    with open(params, 'w') as js:
         json.dump(form, js)
-    subprocess.call([config.virtual.pattern, './mass/low_level/sentiment_pattern.py'])
-    data = pandas.read_excel(closed)
+    os.chdir(project_dir)
+    subprocess.call([config.virtual.pattern, os.path.join(project_dir, 'mass\\low_level\\sentiment_pattern.py')])
+    os.chdir(current_wd)
+    data = pandas.read_excel(config.data.closed)
     return data

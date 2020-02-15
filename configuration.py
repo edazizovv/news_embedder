@@ -1,11 +1,16 @@
+import os
 import json
+
+project_dir = os.path.dirname(__file__)
 
 
 def form_factor(config):
     adds = {'jdk': config.adds.jdk,
             'stanford_ner': config.adds.stanford_ner,
             'gz': config.adds.gz}
-    data = {'text': config.data.text}
+    data = {'text': config.data.text,
+            'opened': config.data.opened,
+            'closed': config.data.closed}
     model = config.model
     form = {'adds': adds,
             'data': data,
@@ -15,7 +20,7 @@ def form_factor(config):
 
 class VirtualConfig_new:
     def __init__(self):
-        with open('./settings/virtual.json', 'r') as js:
+        with open(os.path.join(project_dir, 'settings\\virtual.json'), 'r') as js:
             param = json.load(js)
         self.flair = param['flair']
         self.nltk = param['nltk']
@@ -29,7 +34,7 @@ class VirtualConfig_new:
 
 class AddsConfig_new:
     def __init__(self):
-        with open('./settings/adds.json', 'r') as js:
+        with open(os.path.join(project_dir, 'settings\\adds.json'), 'r') as js:
             param = json.load(js)
         self.jdk = param['jdk']
         self.stanford_ner = param['stanford_ner']
@@ -38,9 +43,11 @@ class AddsConfig_new:
 
 class DataConfig_new:
     def __init__(self, text):
-        with open('./settings/data.json', 'r') as js:
+        with open(os.path.join(project_dir, 'settings\\data.json'), 'r') as js:
             param = json.load(js)
         self.text = text
+        self.opened = os.path.join(project_dir, 'data\\gained.xlsx')
+        self.closed = os.path.join(project_dir, 'data\\source.xlsx')
 
 
 class Config_new:
