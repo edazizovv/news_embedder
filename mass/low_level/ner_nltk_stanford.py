@@ -1,26 +1,19 @@
+import os
 import json
 import numpy
 import pandas
 from nltk.tag import StanfordNERTagger
 # from nltk.tag.corenlp import CoreNLPNERTagger
 
-import os
-
-java_path = "C:/Program Files/Java/jdk-13.0.1/bin/java.exe"
-os.environ['JAVAHOME'] = java_path
-# TODO: configure these paths!
-a1 = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\classifiers\\english.all.3class.distsim.crf.ser.gz'
-a2 = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\classifiers\\english.all.3class.distsim.prop'
-
-b = 'C:\\Users\\MainUser\\OneDrive\\RAMP-EXTERNAL\\IP-02\\OSTRTA\\models\\stanford-ner-2018-10-16\\stanford-ner.jar'
-
-in_data = pandas.read_excel('./data/source.xlsx')
-array = in_data['Text'].values
 
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-st = StanfordNERTagger(a1, b)
+in_data = pandas.read_excel('./data/source.xlsx')
+array = in_data[param['data']['text']].values
+
+os.environ['JAVAHOME'] = param['adds']['jdk']
+st = StanfordNERTagger(param['adds']['gz'], param['adds']['stanford_ner'])
 # st = CoreNLPNERTagger(a1, b)
 
 # Step 2. Make our data (with the vocabulary navigating columns)
@@ -85,7 +78,7 @@ print('saving')
 # data.to_excel('./data/gained.xlsx', index=False)
 
 if 'code' in param:
-    code_ = param['code'] + '_'
+    code_ = param['model']['code'] + '_'
 else:
     code_ = ''
 columns = {j: 'R_SFD_{}{}'.format(code_, j) for j in data.columns.values}

@@ -8,11 +8,11 @@ import numpy
 result = []
 columns = ['polarity', 'subjectivity']
 
-in_data = pandas.read_excel('./data/source.xlsx')
-array = in_data['Text'].values
-
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
+
+in_data = pandas.read_excel('./data/source.xlsx')
+array = in_data[param['data']['text']].values
 
 values = None
 for x in array:
@@ -27,7 +27,7 @@ print('saving')
 # data.to_excel('./data/gained.xlsx', index=False)
 
 if 'code' in param:
-    code_ = param['code'] + '_'
+    code_ = param['model']['code'] + '_'
 else:
     code_ = ''
 columns = {j: 'S_PTT_{}{}'.format(code_, j) for j in data.columns.values}

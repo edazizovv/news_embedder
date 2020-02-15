@@ -3,13 +3,13 @@ import numpy
 import pandas
 import sister
 
-in_data = pandas.read_excel('./data/source.xlsx')
-array = in_data['Text'].values
-
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-aggregating_strategy = param['agg']
+in_data = pandas.read_excel('./data/source.xlsx')
+array = in_data[param['data']['text']].values
+
+aggregating_strategy = param['model']['agg']
 embedding = None
 if aggregating_strategy == 'mean':
     embedding = sister.MeanEmbedding(lang="en")
@@ -27,7 +27,7 @@ print('saving')
 # pandas.DataFrame(result).to_excel('./data/gained.xlsx', index=False)
 
 if 'code' in param:
-    code_ = param['code'] + '_'
+    code_ = param['model']['code'] + '_'
 else:
     code_ = ''
 columns = ['E_SSR_{}{}'.format(code_, j) for j in range(result.shape[1])]

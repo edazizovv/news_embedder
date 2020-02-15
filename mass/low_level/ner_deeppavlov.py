@@ -3,13 +3,13 @@ import numpy
 import pandas
 from deeppavlov import configs, build_model
 
-in_data = pandas.read_excel('./data/source.xlsx')
-array = in_data['Text'].values
-
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-which = param['model']
+in_data = pandas.read_excel('./data/source.xlsx')
+array = in_data[param['data']['text']].values
+
+which = param['model']['model']
 
 ner_model = None
 if which == 'onto_bert_mult':
@@ -98,7 +98,7 @@ print('saving')
 # data.to_excel('./data/gained.xlsx', index=False)
 
 if 'code' in param:
-    code_ = param['code'] + '_'
+    code_ = param['model']['code'] + '_'
 else:
     code_ = ''
 columns = {j: 'R_DPA_{}{}'.format(code_, j) for j in data.columns.values}

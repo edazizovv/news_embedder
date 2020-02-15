@@ -4,30 +4,34 @@ import pandas
 from flair.embeddings import WordEmbeddings, FlairEmbeddings
 from flair.embeddings import DocumentPoolEmbeddings, DocumentRNNEmbeddings, Sentence
 
-in_data = pandas.read_excel('./data/source.xlsx')
-array = in_data['Text'].values
-
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-layers = param['layers']
-layers_source = param['sources']
+in_data = pandas.read_excel('./data/source.xlsx')
+array = in_data[param['data']['text']].values
+
+layers = param['model']['models']
+#layers_source = param['model']['sources']
+
+word_models = ['glove', 'turian', 'extvec', 'crawl', 'news', 'twitter', 'en-wiki', 'en-crawl']
+flair_models = ['en-forward', 'en-backward', 'news-forward', 'news-backward', 'mix-forward', 'mix-backward']
 
 for j in range(len(layers)):
-    if layers_source[j] == 'word':
-        layers[j] = WordEmbeddings(layers[j])
-    if layers_source[j] == 'flair':
-        layers[j] = FlairEmbeddings(layers[j])
-    if layers_source[j] != 'word' and layers_source[j] != 'flair':
+    if (layers[j] not in word_models) and (layers[j] not in flair_models):
         raise KeyError("Not Enough Minerals")
+    if layers[j] in word_models:
+        layers[j] = WordEmbeddings(layers[j])
+    if layers[j] in flair_models:
+        layers[j] = FlairEmbeddings(layers[j])
+
 
 embedding = None
-if param['agg'] == 'pooling':
+if param['model']['agg'] == 'pooling':
     # TODO: check if kwargs work
-    embedding = DocumentPoolEmbeddings(layers, **param['options'])
-if param['agg'] == 'rnn':
+    embedding = DocumentPoolEmbeddings(layers, **param['model']['options'])
+if param['model']['agg'] == 'rnn':
     # TODO: check if kwargs work
-    embedding = DocumentRNNEmbeddings(layers, **param['options'])
+    embedding = DocumentRNNEmbeddings(layers, **param['model']['options'])
 if embedding is None:
     raise KeyError("Insufficient vespine gas")
 
@@ -43,7 +47,7 @@ print('saving')
 # pandas.DataFrame(result).to_excel('./data/gained.xlsx', index=False)
 
 if 'code' in param:
-    code_ = param['code'] + '_'
+    code_ = param['model']['code'] + '_'
 else:
     code_ = ''
 columns = ['E_FLR_{}{}'.format(code_, j) for j in range(result.shape[1])]
