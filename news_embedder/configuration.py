@@ -18,7 +18,7 @@ def form_factor(config):
     return form
 
 
-class VirtualConfig_new:
+class VirtualConfig:
     def __init__(self):
         with open(os.path.join(project_dir, 'settings\\virtual.json'), 'r') as js:
             param = json.load(js)
@@ -32,7 +32,7 @@ class VirtualConfig_new:
         self.use = param['use']
 
 
-class AddsConfig_new:
+class AddsConfig:
     def __init__(self):
         with open(os.path.join(project_dir, 'settings\\adds.json'), 'r') as js:
             param = json.load(js)
@@ -41,50 +41,19 @@ class AddsConfig_new:
         self.gz = param['gz']
 
 
-class DataConfig_new:
+class DataConfig:
     def __init__(self, text):
         with open(os.path.join(project_dir, 'settings\\data.json'), 'r') as js:
             param = json.load(js)
         self.text = text
-        self.opened = os.path.join(project_dir, 'data\\gained.xlsx')
-        self.closed = os.path.join(project_dir, 'data\\source.xlsx')
-
-
-class Config_new:
-    def __init__(self, text='Text'):
-        self.virtual = VirtualConfig_new()
-        self.adds = AddsConfig_new()
-        self.data = DataConfig_new(text)
-        self.model = None
-
-
-
+        self.opened = os.path.join(project_dir, 'data\\source.xlsx')
+        self.closed = os.path.join(project_dir, 'data\\gained.xlsx')
 
 
 class Config:
-    def __init__(self):
+    def __init__(self, text='Text'):
         self.virtual = VirtualConfig()
-        self.paths = Paths()
-        self.text_column = 'Text'
-        self.date_column = 'DateTime'
-        self.params = None
-
-
-class VirtualConfig:
-    def __init__(self):
-        self.flair = 'E:/venv/hazard_flair/python.exe'
-        self.nltk = 'E:/venv/hazard_nltk/python.exe'
-        self.textblob = 'E:/venv/hazard_textblob/python.exe'
-        self.pattern = 'E:/venv/hazard_pattern/python.exe'
-        self.deeppavlov = 'E:/venv/hazard_deeppavlov/python.exe'
-        self.spacy = 'E:/venv/hazard_spacy/python.exe'
-        self.sister = 'E:/venv/hazard_sister/python.exe'
-        self.use = 'E:/venv/hazard_use/python.exe'
-
-
-class Paths:
-    def __init__(self):
-        self.store = './data/'
-        self.opened = 'source.xlsx'
-        self.closed = 'gained.xlsx'
+        self.adds = AddsConfig()
+        self.data = DataConfig(text)
+        self.model = None
 
