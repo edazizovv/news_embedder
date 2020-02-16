@@ -2,7 +2,7 @@ import os
 import json
 import pandas
 import subprocess
-from configuration import form_factor
+from news_embedder.configuration import form_factor
 
 current_wd = os.getcwd()
 project_dir = os.path.dirname(os.path.dirname(__file__))

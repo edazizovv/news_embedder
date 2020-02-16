@@ -18,8 +18,8 @@ data = pandas.DataFrame(data={'Text': ["Quick red fox jumps over a lazy dog. Wow
                                        "A new trade deal has been made, Trump says",
                                        "Elon Musk's invaders caused a global meltdown on Mars, aliens' press-release claims"]})
 
-from overhelm import sentiment_pool, ner_pool, embedding_pool
-from configuration import Config_new as Config
+from news_embedder.overhelm import sentiment_pool
+from news_embedder.configuration import Config_new as Config
 config = Config()
 config.model = {}
 

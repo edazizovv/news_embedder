@@ -1,8 +1,8 @@
 import pandas
 
-from mass.sentiment import flair_assessor, pattern_assessor, textblob_assessor, nltk_assessor
-from mass.ner import flair_ner_cell, deeppavlov_ner_cell, spacy_ner_cell, nltk_stanford_ner_cell
-from mass.embedding import flair_embedder, sister_embedder, spacy_embedder, use_embedder
+from news_embedder.mass.sentiment import flair_assessor, pattern_assessor, textblob_assessor, nltk_assessor
+from news_embedder.mass.ner import flair_ner_cell, deeppavlov_ner_cell, spacy_ner_cell, nltk_stanford_ner_cell
+from news_embedder.mass.embedding import flair_embedder, sister_embedder, spacy_embedder, use_embedder
 
 
 def sentiment_pool(data_frame, names, config):
