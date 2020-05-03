@@ -15,7 +15,14 @@ def flair_embedder(data, config):
     with open(params, 'w') as js:
         json.dump(form, js)
     os.chdir(project_dir)
-    subprocess.call([config.virtual.flair, os.path.join(project_dir, 'mass\\low_level\\embedding_flair.py')])
+    result = subprocess.run([config.virtual.flair, os.path.join(project_dir, 'mass\\low_level\\embedding_flair.py')], capture_output=True)
+    if result.returncode == 0:
+        pass
+    else:
+        print('\n\n')
+        print(result.stderr)
+        print('\n\n')
+        raise Exception
     os.chdir(current_wd)
     data = pandas.read_excel(config.data.closed)
     return data
@@ -27,7 +34,14 @@ def sister_embedder(data, config):
     with open(params, 'w') as js:
         json.dump(form, js)
     os.chdir(project_dir)
-    subprocess.call([config.virtual.sister, os.path.join(project_dir, 'mass\\low_level\\embedding_sister.py')])
+    result = subprocess.run([config.virtual.sister, os.path.join(project_dir, 'mass\\low_level\\embedding_sister.py')], capture_output=True)
+    if result.returncode == 0:
+        pass
+    else:
+        print('\n\n')
+        print(result.stderr)
+        print('\n\n')
+        raise Exception
     os.chdir(current_wd)
     data = pandas.read_excel(config.data.closed)
     return data
@@ -39,7 +53,14 @@ def spacy_embedder(data, config):
     with open(params, 'w') as js:
         json.dump(form, js)
     os.chdir(project_dir)
-    subprocess.call([config.virtual.spacy, os.path.join(project_dir, 'mass\\low_level\\embedding_spacy.py')])
+    result = subprocess.run([config.virtual.spacy, os.path.join(project_dir, 'mass\\low_level\\embedding_spacy.py')], capture_output=True)
+    if result.returncode == 0:
+        pass
+    else:
+        print('\n\n')
+        print(result.stderr)
+        print('\n\n')
+        raise Exception
     os.chdir(current_wd)
     data = pandas.read_excel(config.data.closed)
     return data
@@ -51,7 +72,14 @@ def use_embedder(data, config):
     with open(params, 'w') as js:
         json.dump(form, js)
     os.chdir(project_dir)
-    subprocess.call([config.virtual.use, os.path.join(project_dir, 'mass\\low_level\\embedding_use.py')])
+    result = subprocess.run([config.virtual.use, os.path.join(project_dir, 'mass\\low_level\\embedding_use.py')], capture_output=True)
+    if result.returncode == 0:
+        pass
+    else:
+        print('\n\n')
+        print(result.stderr)
+        print('\n\n')
+        raise Exception
     os.chdir(current_wd)
     data = pandas.read_excel(config.data.closed)
     return data

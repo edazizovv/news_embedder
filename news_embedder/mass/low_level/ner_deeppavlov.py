@@ -91,6 +91,9 @@ for x in array:
     else:
         result.append(numpy.zeros(shape=(1, start_len)))
 
+print('GPGPGP')
+print(result)
+print('GPGPGP')
 result = numpy.concatenate(result, axis=0)
 
 data = pandas.DataFrame(data=result, columns=columns)

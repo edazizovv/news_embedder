@@ -1,0 +1,3 @@
+{"jdk": "C:/Program Files/Java/jdk-13.0.1/bin/java.exe",
+ "stanford_ner": "C:/Users/MainUser/OneDrive/RAMP-EXTERNAL/IP-02/OSTRTA/models/stanford-ner-2018-10-16/stanford-ner.jar",
+ "gz": "C:/Users/MainUser/OneDrive/RAMP-EXTERNAL/IP-02/OSTRTA/models/stanford-ner-2018-10-16/classifiers/english.all.3class.distsim.crf.ser.gz"}

@@ -3,6 +3,7 @@ import numpy
 import pandas
 import spacy
 
+
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 

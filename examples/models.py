@@ -65,19 +65,19 @@ models
 Flair
 
 <no parameters should be specified>
-
+                        failed
 
 NLTK Stanford
 
 <no parameters should be specified>
-
+                        failed
 
 SpaCy
 
 models
-    > 'sm'
-    > 'md'
-    > 'lg'
+    > 'sm'              passed
+    > 'md'              failed
+    > 'lg'              passed
 
 
 -------------------------------------------------------------
