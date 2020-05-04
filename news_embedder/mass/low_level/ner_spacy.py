@@ -56,12 +56,9 @@ for y in array:
 
     if len(h) > 0:
         start_len = start_len + len(h)
-        if start:
-            start = False
-        else:
-            for g in range(len(result)):
-                gle = len(h)
-                result[g] = numpy.concatenate((result[g], numpy.zeros(shape=(1, gle))), axis=1)
+        for g in range(len(result)):
+            gle = len(h)
+            result[g] = numpy.concatenate((result[g], numpy.zeros(shape=(1, gle))), axis=1)
 
         values = numpy.zeros(shape=(1, start_len))
 

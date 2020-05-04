@@ -32,6 +32,7 @@ start_len = 0
 result = []
 columns = []
 for x in array:
+    print(x)
     y = ner_model([x])
 
     enha = {}
@@ -59,6 +60,7 @@ for x in array:
             else:
                 enha[current_token_l] = [code_label]
 
+    print(enha)
     # h = list(enha.keys())
     add_c = []
 
@@ -69,15 +71,12 @@ for x in array:
     outers = [z for z in add_c if z not in columns]
     columns = columns + outers
     h = outers
-
+    print(h)
     if len(h) > 0:
         start_len = start_len + len(h)
-        if start:
-            start = False
-        else:
-            for g in range(len(result)):
-                gle = len(h)
-                result[g] = numpy.concatenate((result[g], numpy.zeros(shape=(1, gle))), axis=1)
+        for g in range(len(result)):
+            gle = len(h)
+            result[g] = numpy.concatenate((result[g], numpy.zeros(shape=(1, gle))), axis=1)
 
         values = numpy.zeros(shape=(1, start_len))
 
@@ -90,10 +89,8 @@ for x in array:
 
     else:
         result.append(numpy.zeros(shape=(1, start_len)))
-
-print('GPGPGP')
+    print(result)
 print(result)
-print('GPGPGP')
 result = numpy.concatenate(result, axis=0)
 
 data = pandas.DataFrame(data=result, columns=columns)
