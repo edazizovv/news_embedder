@@ -15,10 +15,10 @@ metadata = {'name': 'news_embedder',
             'download_url': 'https://github.com/redjerdai/news_embedder',
             'packages': setuptools.find_packages(),
             'include_package_data': True,
-            'version': '0.1.0.23',
+            'version': '0.1.1.3',
             'long_description': '',
             'python_requires': '>=3.7',
-            'install_requires': ['xlrd==1.2.0', 'openpyxl==3.0.3', 'pandas==1.0.1']}
+            'install_requires': ['xlrd', 'openpyxl', 'pandas']}
 
 
 setup(**metadata)
