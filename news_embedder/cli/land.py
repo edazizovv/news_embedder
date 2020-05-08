@@ -96,7 +96,7 @@ def land(wd):
     print(tddx)
 
     run_command(Commands.CREATE, "--prefix", tdd, "python=3.7", "conda")
-    run_command(Commands.INSTALL, "-c", "anaconda", "numpy", "--prefix", tdd)
+    run_command(Commands.INSTALL, "-c", "anaconda", "numpy=1.18.1", "--prefix", tdd)
     run_command(Commands.INSTALL, "-c", "conda-forge", "spacy", "--prefix", tdd)
     subprocess.run([tddx, "-m", "spacy", "download", "en_core_web_sm"])
     subprocess.run([tddx, "-m", "spacy", "download", "en_core_web_md"])
