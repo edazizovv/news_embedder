@@ -8,7 +8,8 @@ from flair.data import Sentence
 with open('./data/params.json', 'r') as param_:
     param = json.load(param_)
 
-in_data = pandas.read_excel(param['data']['opened'])
+# in_data = pandas.read_excel(param['data']['opened'])
+in_data = pandas.read_csv(param['data']['opened'], sep=';')
 array = in_data[param['data']['text']].values
 
 tagger = SequenceTagger.load('ner')
@@ -81,4 +82,5 @@ if 'code' in param:
 else:
     code_ = ''
 columns = {j: 'R_FLR_{}{}'.format(code_, j) for j in data.columns.values}
-pandas.DataFrame(data=result, columns=columns).to_excel('./data/gained.xlsx', index=False)
+# pandas.DataFrame(data=result, columns=columns).to_excel('./data/gained.xlsx', index=False)
+pandas.DataFrame(data=result, columns=columns).to_csv(param['data']['closed'], index=False, sep=';')

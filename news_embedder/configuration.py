@@ -46,8 +46,8 @@ class DataConfig:
         with open(os.path.join(project_dir, 'settings\\data.json'), 'r') as js:
             param = json.load(js)
         self.text = text
-        self.opened = os.path.join(project_dir, 'data\\source.xlsx')
-        self.closed = os.path.join(project_dir, 'data\\gained.xlsx')
+        self.opened = os.path.join(project_dir, 'data\\source.csv')
+        self.closed = os.path.join(project_dir, 'data\\gained.csv')
 
 
 class Config:

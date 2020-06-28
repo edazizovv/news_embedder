@@ -5,7 +5,7 @@ data = pandas.DataFrame(data={'Text': ["Quick red fox jumps over a lazy dog. Wow
                                        "Quick red fox jumps over a lazy dog. So cute!",
                                        "Quick red fox jumps over a lazy dog. I hate them!",
                                        "My boss is an idiot. I wish he would be fired one day.",
-                                       "My boss is amazing! I wish he would take a better position one day.",
+                                       "My boss is amazing! I wish he would be promoted one day.",
                                        "Quick red fox jumps over a lazy dog",
                                        "Wow really?",
                                        "So cute!",
@@ -13,8 +13,8 @@ data = pandas.DataFrame(data={'Text': ["Quick red fox jumps over a lazy dog. Wow
                                        "My boss is an idiot. ",
                                        "I wish he would be fired one day.",
                                        "My boss is amazing! ",
-                                       "I wish he would take a better position one day.",
-                                       "Apple and Microsoft sign a new contract for $1.2M",
+                                       "I wish he would be promoted one day.",
+                                       "Apple and Microsoft make a new deal for $1.2M",
                                        "A new trade deal has been made, Trump says",
                                        "Elon Musk's invaders caused a global meltdown on Mars, aliens' press-release claims"]})
 

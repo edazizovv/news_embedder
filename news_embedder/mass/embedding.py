@@ -10,7 +10,8 @@ params = os.path.join(project_dir, 'data\\params.json')
 
 
 def flair_embedder(data, config):
-    data.to_excel(config.data.opened, index=False)
+    # data.to_excel(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False)
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -24,12 +25,14 @@ def flair_embedder(data, config):
         print('\n\n')
         raise Exception
     os.chdir(current_wd)
-    data = pandas.read_excel(config.data.closed)
+    # data = pandas.read_excel(config.data.closed)
+    data = pandas.read_csv(config.data.closed)
     return data
 
 
 def sister_embedder(data, config):
-    data.to_excel(config.data.opened, index=False)
+    # data.to_excel(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False)
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -43,12 +46,14 @@ def sister_embedder(data, config):
         print('\n\n')
         raise Exception
     os.chdir(current_wd)
-    data = pandas.read_excel(config.data.closed)
+    # data = pandas.read_excel(config.data.closed)
+    data = pandas.read_csv(config.data.closed)
     return data
 
 
 def spacy_embedder(data, config):
-    data.to_excel(config.data.opened, index=False)
+    # data.to_excel(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False)
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -62,12 +67,14 @@ def spacy_embedder(data, config):
         print('\n\n')
         raise Exception
     os.chdir(current_wd)
-    data = pandas.read_excel(config.data.closed)
+    # data = pandas.read_excel(config.data.closed)
+    data = pandas.read_csv(config.data.closed)
     return data
 
 
 def use_embedder(data, config):
-    data.to_excel(config.data.opened, index=False)
+    # data.to_excel(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False)
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -81,6 +88,7 @@ def use_embedder(data, config):
         print('\n\n')
         raise Exception
     os.chdir(current_wd)
-    data = pandas.read_excel(config.data.closed)
+    # data = pandas.read_excel(config.data.closed)
+    data = pandas.read_csv(config.data.closed)
     return data
 
