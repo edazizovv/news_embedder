@@ -29,8 +29,8 @@ n_char = data['Text'].apply(lambda x: len(x)).sum()
 print('Size of the data being treated is:\n\tN of texts = {}\n\tTotal N of characters = {}'.format(data.shape[0], n_char))
 
 # result_data = ner_pool(data, ['spacy'], config)
-result_data = sentiment_pool(data, ['textblob'], config)
-# result_data = embedding_pool(data, ['use'], config)
+# result_data = sentiment_pool(data, ['textblob'], config)
+result_data = embedding_pool(data, ['use'], config)
 run_time = time.time() - run_time
 print('Total run time = {0:.2f} seconds'.format(run_time))
 
