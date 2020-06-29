@@ -1,7 +1,4 @@
-import os
-import sys
-import json
-import subprocess
+#
 import setuptools
 from setuptools import setup
 
@@ -15,10 +12,10 @@ metadata = {'name': 'news_embedder',
             'download_url': 'https://github.com/redjerdai/news_embedder',
             'packages': setuptools.find_packages(),
             'include_package_data': True,
-            'version': '0.2.0.2',
+            'version': '0.2.1.1',
             'long_description': '',
             'python_requires': '<3.9',
-            'install_requires': ['mkl', 'numpy', 'xlrd', 'openpyxl', 'pandas']}
+            'install_requires': ['mkl', 'numpy', 'pandas']}
 
 
 setup(**metadata)

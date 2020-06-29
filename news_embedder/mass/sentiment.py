@@ -11,7 +11,7 @@ params = os.path.join(project_dir, 'data\\params.json')
 
 def flair_assessor(data, config):
     # data.to_excel(config.data.opened, index=False)
-    data.to_csv(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False, sep=';')
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -24,13 +24,13 @@ def flair_assessor(data, config):
         raise Exception
     os.chdir(current_wd)
     # data = pandas.read_excel(config.data.closed)
-    data = pandas.read_csv(config.data.closed)
+    data = pandas.read_csv(config.data.closed, sep=';')
     return data
 
 
 def nltk_assessor(data, config):
     # data.to_excel(config.data.opened, index=False)
-    data.to_csv(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False, sep=';')
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -43,13 +43,13 @@ def nltk_assessor(data, config):
         raise Exception
     os.chdir(current_wd)
     # data = pandas.read_excel(config.data.closed)
-    data = pandas.read_csv(config.data.closed)
+    data = pandas.read_csv(config.data.closed, sep=';')
     return data
 
 
 def textblob_assessor(data, config):
     # data.to_excel(config.data.opened, index=False)
-    data.to_csv(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False, sep=';')
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -62,13 +62,13 @@ def textblob_assessor(data, config):
         raise Exception
     os.chdir(current_wd)
     # data = pandas.read_excel(config.data.closed)
-    data = pandas.read_csv(config.data.closed)
+    data = pandas.read_csv(config.data.closed, sep=';')
     return data
 
 
 def pattern_assessor(data, config):
     # data.to_excel(config.data.opened, index=False)
-    data.to_csv(config.data.opened, index=False)
+    data.to_csv(config.data.opened, index=False, sep=';')
     form = form_factor(config)
     with open(params, 'w') as js:
         json.dump(form, js)
@@ -81,5 +81,5 @@ def pattern_assessor(data, config):
         raise Exception
     os.chdir(current_wd)
     # data = pandas.read_excel(config.data.closed)
-    data = pandas.read_csv(config.data.closed)
+    data = pandas.read_csv(config.data.closed, sep=';')
     return data
