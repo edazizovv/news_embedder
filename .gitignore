@@ -2,3 +2,4 @@
 build/*
 dist/*
 news_embedder.egg-info/*
+.idea/
