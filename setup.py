@@ -4,7 +4,7 @@ from setuptools import setup
 
 
 metadata = {'name': 'news_embedder',
-            'maintainer': 'Edward Aziz',
+            'maintainer': 'Edward Azizov',
             'maintainer_email': 'edazizovv@gmail.com',
             'description': 'A naive wrapper for some NLP tools & packages',
             'license': 'MIT',

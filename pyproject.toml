@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "news_embedder"
+version = "0.0.1"
+description = "A naive wrapper over NLP packages"
+authors = [
+  "edazizovv",
+]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "news_embedder"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
